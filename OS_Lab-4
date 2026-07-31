@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "Enter a number:"
+read n
+
+# Summation
+sum=0
+for ((i=1; i<=n; i++))
+do
+    sum=$((sum+i))
+done
+echo "Summation = $sum"
+
+# Multiplication
+mul=1
+for ((i=1; i<=n; i++))
+do
+    mul=$((mul*i))
+done
+echo "Multiplication = $mul"
+
+# Even or Odd
+if (( n % 2 == 0 ))
+then
+    echo "$n is Even"
+else
+    echo "$n is Odd"
+fi
+
+# Prime Number
+count=0
+for ((i=1; i<=n; i++))
+do
+    if (( n % i == 0 ))
+    then
+        count=$((count+1))
+    fi
+done
+
+if ((count==2))
+then
+    echo "$n is Prime Number"
+else
+    echo "$n is Not Prime Number"
+fi
