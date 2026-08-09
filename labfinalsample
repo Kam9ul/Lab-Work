@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Login Authentication
+
+echo "=============================="
+echo "        LOGIN SYSTEM"
+echo "=============================="
+
+read -p "Enter Username: " username
+read -sp "Enter Password: " password
+echo
+
+if [ "$username" = "admin" ] && [ "$password" = "1234" ]
+then
+    echo "Login Successful"
+    echo
+
+    # Menu Driven Calculator
+
+    while true
+    do
+        echo "=============================="
+        echo "     MENU DRIVEN CALCULATOR"
+        echo "=============================="
+        echo "1. Addition"
+        echo "2. Subtraction"
+        echo "3. Multiplication"
+        echo "4. Division"
+        echo "5. Print Multiplication Table"
+        echo "6. Exit"
+        echo "=============================="
+
+        read -p "Enter your choice: " choice
+
+        if [ "$choice" -eq 1 ]
+        then
+            read -p "Enter first number: " a
+            read -p "Enter second number: " b
+
+            result=$((a + b))
+            echo "Addition = $result"
+
+        elif [ "$choice" -eq 2 ]
+        then
+            read -p "Enter first number: " a
+            read -p "Enter second number: " b
+
+            result=$((a - b))
+            echo "Subtraction = $result"
+
+        elif [ "$choice" -eq 3 ]
+        then
+            read -p "Enter first number: " a
+            read -p "Enter second number: " b
+
+            result=$((a * b))
+            echo "Multiplication = $result"
+
+        elif [ "$choice" -eq 4 ]
+        then
+            read -p "Enter first number: " a
+            read -p "Enter second number: " b
+
+            if [ "$b" -eq 0 ]
+            then
+                echo "Division by zero is not allowed!"
+            else
+                result=$((a / b))
+                echo "Division = $result"
+            fi
+
+        elif [ "$choice" -eq 5 ]
+        then
+            read -p "Enter a number: " n
+
+            echo "Multiplication Table of $n"
+
+            for ((i=1; i<=10; i++))
+            do
+                echo "$n x $i = $((n * i))"
+            done
+
+        elif [ "$choice" -eq 6 ]
+        then
+            echo "Program Exited."
+            exit
+
+        else
+            echo "Invalid Choice! Please try again."
+        fi
+
+        echo
+    done
+
+else
+    echo "Login Failed"
+    exit
+fi
