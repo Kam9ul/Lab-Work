@@ -2,9 +2,7 @@
 
 # Login Authentication
 
-echo "=============================="
 echo "        LOGIN SYSTEM"
-echo "=============================="
 
 read -p "Enter Username: " username
 read -sp "Enter Password: " password
@@ -19,16 +17,13 @@ then
 
     while true
     do
-        echo "=============================="
         echo "     MENU DRIVEN CALCULATOR"
-        echo "=============================="
         echo "1. Addition"
         echo "2. Subtraction"
         echo "3. Multiplication"
         echo "4. Division"
         echo "5. Print Multiplication Table"
         echo "6. Exit"
-        echo "=============================="
 
         read -p "Enter your choice: " choice
 
