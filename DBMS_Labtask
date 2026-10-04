@@ -1,0 +1,220 @@
+1. Create Three Tables
+
+CREATE TABLE Branch (
+    branch_name VARCHAR(30) PRIMARY KEY,
+    branch_city VARCHAR(30)
+);
+
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50) NOT NULL,
+    balance DECIMAL(10,2),
+    branch_name VARCHAR(30),
+    FOREIGN KEY (branch_name) REFERENCES Branch(branch_name)
+);
+
+CREATE TABLE Account (
+    account_no INT PRIMARY KEY,
+    customer_id INT,
+    account_type VARCHAR(30),
+    balance DECIMAL(10,2),
+    opening_year INT,
+    FOREIGN KEY (customer_id) REFERENCES Branch(branch_name)
+);
+
+
+
+
+2. Insert three branches, five customers and five accounts into the tables.
+
+INSERT INTO Branch VALUES
+('Gulshan', 'Dhaka'),
+('Agrabad', 'Chittagong'),
+('Dhanmondi', 'Dhaka');
+
+
+INSERT INTO Customer VALUES
+(101, 'Sadia', 75000, 'Gulshan'),
+(102, 'Siam', 65000, 'Agrabad'),
+(103, 'Rahim', 85000, 'Gulshan'),
+(104, 'Karim', 55000, 'Dhanmondi'),
+(105, 'Shima', 95000, 'Agrabad');
+
+
+INSERT INTO Account VALUES
+(1001, 101, 'Savings', 75000, 2024),
+(1002, 102, 'Current', 65000, 2025),
+(1003, 103, 'Savings', 85000, 2024),
+(1004, 104, 'Current', 55000, 2025),
+(1005, 105, 'Savings', 95000, 2024);
+
+
+
+
+3. Display all attributes of all customers.
+
+SELECT * FROM Customer;
+
+
+
+
+4. Display the names of customers whose balance is greater than 70000.
+
+
+SELECT customer_name
+FROM Customer
+WHERE balance > 70000;
+
+
+
+5. Display the names of customers who belong to the Gulshan branch and have a balance
+greater than 60000.
+
+SELECT customer_name
+FROM Customer
+WHERE branch_name = 'Gulshan'
+AND balance > 60000;
+
+
+
+
+6. Display the branch names of customers without duplicate values.
+
+SELECT DISTINCT branch_name
+FROM Customer;
+
+
+
+7. Display each customer's ID, name, and monthly average balance.
+
+SELECT customer_id, customer_name, balance/12 AS monthly_average_balance
+FROM Customer;
+
+
+8. Display all customers in descending order of their balance.
+
+SELECT *
+FROM Customer
+ORDER BY balance DESC;
+
+
+
+9. Display the names of customers whose names begin with S and then at least one letter
+before the substring 'ia'
+
+SELECT customer_name
+FROM Customer
+WHERE customer_name LIKE 'S_%ia%';
+
+
+
+10. Names and balances between 60000 and 90000
+
+
+SELECT customer_name, balance
+FROM Customer
+WHERE balance BETWEEN 60000 AND 90000;
+
+
+
+
+11. Display customer names along with the account numbers they own.
+Do the same thing using ‘NATURAL JOIN’.
+
+
+SELECT C.customer_name, A.account_no
+FROM Customer C, Account A
+WHERE C.customer_id = A.customer_id;
+
+
+Using NATURAL JOIN:
+
+SELECT customer_name, account_no
+FROM Customer
+NATURAL JOIN Account;
+
+
+
+
+12. Using relation aliases C and B, find the names of customers whose balance is greater
+than the balance of at least one customer from the Gulshan branch.
+
+SELECT C.customer_name
+FROM Customer C, Customer B
+WHERE C.balance > B.balance
+AND B.branch_name = 'Gulshan';
+
+
+
+13. Find the account numbers that were opened either in 2024 or 2025.
+
+SELECT account_no
+FROM Account
+WHERE opening_year = 2024
+OR opening_year = 2025;
+
+
+14. Find the account numbers that were opened both in 2024 and 2025.
+
+SELECT account_no
+FROM Account
+WHERE opening_year = 2024
+AND opening_year = 2025;
+
+
+
+15. Find the account numbers that were opened in 2024 but not in 2025.
+
+
+SELECT account_no
+FROM Account
+WHERE opening_year = 2024
+AND opening_year <> 2025;
+
+
+
+16. Find the average balance of customers for each branch.
+
+SELECT branch_name, AVG(balance) AS average_balance
+FROM Customer
+GROUP BY branch_name;
+
+
+17. Display the branches whose average customer balance is greater than 70000.
+
+SELECT branch_name, AVG(balance) AS average_balance
+FROM Customer
+GROUP BY branch_name
+HAVING AVG(balance) > 70000;
+
+
+
+18. Find the account numbers that were opened in 2024 and also in 2025 using a nested
+subquery
+
+SELECT account_no
+FROM Account
+WHERE opening_year = 2024
+AND opening_year IN
+(
+    SELECT opening_year
+    FROM Account
+    WHERE opening_year = 2025
+);
+
+
+
+
+19. Increase the balance of customers whose balance is greater than 100000 by 7%.
+
+UPDATE Customer
+SET balance = balance * 1.07
+WHERE balance > 100000;
+
+
+
+
+20. Delete all customers who belong to the Agrabad branch
+
+DELETE FROM Customer
+WHERE branch_name = 'Agrabad';
